@@ -77,7 +77,6 @@
             "botUrl",
             "readingBot",
             "autoReplyChatBot",
-            "talkBot",
             "welcomeUser",
             "welcomeMusic",
             "funnySounds",
@@ -91,7 +90,6 @@
         "optionConfig": [
             "str",
             "str",
-            "all, sponsor, mod, off",
             "all, sponsor, mod, off",
             "all, sponsor, mod, off",
             "all, off",
@@ -109,7 +107,6 @@
             "Enter Your Bot Youtube Channel Link: ",
             "Chat Reading Bot\n('all', 'sponsor', 'mod' or 'off'): ",
             "Auto Reply Chat Bot\n('all', 'sponsor', 'mod' or 'off'): ",
-            "Chat Reading With Text To Speech\n('all', 'sponsor', 'mod', 'off')",
             "Welcome User\n('all', 'off'): ",
             "Welcome Music\n('sponsor', 'off'): ",
             "Funny Sounds\n('all', 'sponsor', 'mod', 'off'): ",
