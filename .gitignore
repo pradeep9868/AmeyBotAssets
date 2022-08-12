@@ -1,0 +1,14 @@
+__pycache__
+.vscode
+.idea
+.vs
+build
+plugins
+dist
+JSON
+AmeyBotTest
+*.mp3
+*.ini
+*.txt
+*.png
+!AmeyChatBot.mp3
