@@ -50,10 +50,7 @@
             "AmeySounds.py",
             "AmeyEmoji.py",
             "AmeyChannellog.py",
-            "mpg123.exe",
-            "mpg123 - id3dump.exe",
-            "mpg123 - strip.exe",
-            "out123.exe"
+            "mpg123.exe"
         ],
         "botUrls": {
             "botUpdaterUrl": "https://raw.githubusercontent.com/Amey-Gurjar/AmeyBotAssets/main/AmeyBotUpdater.py",
