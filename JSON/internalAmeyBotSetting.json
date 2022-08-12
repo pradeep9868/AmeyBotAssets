@@ -68,10 +68,7 @@
             "AmeySoundsUrl": "https://raw.githubusercontent.com/Amey-Gurjar/AmeyBotAssets/main/AmeySounds.py",
             "AmeyEmojiUrl": "https://raw.githubusercontent.com/Amey-Gurjar/AmeyBotAssets/main/AmeyEmoji.py",
             "AmeyChannellogUrl": "https://raw.githubusercontent.com/Amey-Gurjar/AmeyBotAssets/main/AmeyChannellog.py",
-            "mpgUrl": "https://raw.githubusercontent.com/Amey-Gurjar/AmeyBotAssets/main/mpg123.exe",
-            "mpgDumpUrl": "https://raw.githubusercontent.com/Amey-Gurjar/AmeyBotAssets/main/mpg123-id3dump.exe",
-            "mpgStripUrl": "https://raw.githubusercontent.com/Amey-Gurjar/AmeyBotAssets/main/mpg123-strip.exe",
-            "outUrl": "https://raw.githubusercontent.com/Amey-Gurjar/AmeyBotAssets/main/out123.exe"
+            "mpgUrl": "https://raw.githubusercontent.com/Amey-Gurjar/AmeyBotAssets/main/mpg123.exe"
         }
     },
     "AmeyConfigFile": {
@@ -80,6 +77,7 @@
             "botUrl",
             "readingBot",
             "autoReplyChatBot",
+            "talkBot",
             "welcomeUser",
             "welcomeMusic",
             "funnySounds",
@@ -93,6 +91,7 @@
         "optionConfig": [
             "str",
             "str",
+            "all, sponsor, mod, off",
             "all, sponsor, mod, off",
             "all, sponsor, mod, off",
             "all, off",
@@ -110,6 +109,7 @@
             "Enter Your Bot Youtube Channel Link: ",
             "Chat Reading Bot\n('all', 'sponsor', 'mod' or 'off'): ",
             "Auto Reply Chat Bot\n('all', 'sponsor', 'mod' or 'off'): ",
+            "Chat Reading With Text To Speech\n('all', 'sponsor', 'mod', 'off')",
             "Welcome User\n('all', 'off'): ",
             "Welcome Music\n('sponsor', 'off'): ",
             "Funny Sounds\n('all', 'sponsor', 'mod', 'off'): ",
