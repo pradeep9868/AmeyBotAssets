@@ -2,7 +2,7 @@ from json import load
 from urllib.request import urlopen
 def jsonFetch():
     global ameyBotChatInput, ameyBotChatOutput
-    internalAmeyBotConfigFile = urlopen("https://ameybot.s3.ap-south-1.amazonaws.com/AmeyBotMain/JSON/autoReplyChatBot.json")
+    internalAmeyBotConfigFile = urlopen("https://raw.githubusercontent.com/Amey-Gurjar/AmeyBotAssets/main/JSON/autoReplyChatBot.json")
     internalAmeyBotConfig = load(internalAmeyBotConfigFile)
     ameyBotChatInput = internalAmeyBotConfig["AmeyChatBot"]["chatInput"]
     ameyBotChatOutput = internalAmeyBotConfig["AmeyChatBot"]["chatOutput"]
