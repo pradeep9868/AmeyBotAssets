@@ -5,9 +5,9 @@
     "AMEYBOTAPI": {
         "botApiKeys": {
             "API_KEY1": "AIzaSyCkXpRrIeBU_-GlQ69ppwetycQ-p7NdXag",
-            "API_KEY2": "AIzaSyAHYbnZ0lThKrKhfgy5-1kBQiH-WM_upWU",
-            "API_KEY3": "AIzaSyAdpHjVoe25dxVlz52pE4XhvPAZpfVhfyo",
-            "API_KEY4": "AIzaSyCqIYOVbgeTfyaf1Gp2GVS9QrCLixMKOdo"
+            "API_KEY2": "AIzaSyBP5tKST4UhVeoCVqhvwKpCC1c180BA9EQ",
+            "API_KEY3": "AIzaSyA4PTRa0dQYf43AT1MiSdG5S4AEChUQoFU",
+            "API_KEY4": "AIzaSyCTEyAZE67NB1OFt_XcM5_RBoNHx5v0dss"
         },
         "botClientJsonFiles": {
             "CLIENT_FILE1": "https://raw.githubusercontent.com/Amey-Gurjar/AmeyBotAssets/main/JSON/AmeyBotOAuth1.json",
