@@ -1,17 +1,16 @@
+import json
 import emoji
 from colorama import Fore
-from urllib.request import urlopen
-import json
+from googletrans import Translator
+from re import subn as resubn, findall as refindall
+translator = Translator(service_urls=["translate.google.com", "translate.google.co.in"])
+emojiPattern = r":(.*?):"
 def printError(text):
     print(Fore.RED, text, Fore.RESET)
 def configValidate():
-    global ameyBotEmojiMain, ameyBotEmojiReplace, timeOutTimeNormal, timeOutTimeMod
-    ameyBotEmojiFile = urlopen("https://github.com/Amey-Gurjar/AmeyBotAssets/raw/main/JSON/internalAmeyBotSetting.json")
-    ameyBotEmoji = json.load(ameyBotEmojiFile)
+    global timeOutTimeNormal, timeOutTimeMod
     ameyBotConfigFile = open("AmeyBotConfig.json", "r")
     ameyBotConfig = json.load(ameyBotConfigFile)
-    ameyBotEmojiMain = ameyBotEmoji["AmeyEmoji"]["emojiMain"]
-    ameyBotEmojiReplace = ameyBotEmoji["AmeyEmoji"]["emojiReplace"]
     emojiLimit = ameyBotConfig["AmeyBotConfig"]["emojiLimit"]
     timeOutTimeNormal = ameyBotConfig["AmeyBotConfig"]["timeOutTimeNormal"]
     timeOutTimeMod = ameyBotConfig["AmeyBotConfig"]["timeOutTimeMod"]
@@ -23,9 +22,10 @@ def emojiCheck(timeInMin, chatMod, insert_comment, Author, chatMessage):
             if counter <= (configValidate()-1):
                 chatMessage = emoji.demojize(chatMessage)
                 try:
-                    for i in range(len(ameyBotEmojiMain)):
-                        if ameyBotEmojiMain[i] in chatMessage:
-                            chatMessage = chatMessage.replace(ameyBotEmojiMain[i],ameyBotEmojiReplace[i])
+                    emojiMain = list(map(lambda x: x.replace("_", " "), refindall(emojiPattern, chatMessage)))
+                    print(emojiMain)
+                    for x in emojiMain:
+                        chatMessage = resubn(pattern=emojiPattern, repl=translator.translate(text=x, dest="hi").text, string=chatMessage, count=1)[0]
                 except Exception as e:
                     printError("Some Error In Emoji", e)
             elif counter > configValidate():
