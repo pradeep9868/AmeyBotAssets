@@ -1,4 +1,6 @@
 __pycache__
+!AmeyChatBot.mp3
+!ameyBotUpdater.png
 .vscode
 .idea
 .vs
@@ -11,5 +13,3 @@ AmeyBotTest
 *.ini
 *.txt
 *.png
-!AmeyChatBot.mp3
-!ameyBotUpdater.png
