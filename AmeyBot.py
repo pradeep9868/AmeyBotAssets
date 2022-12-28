@@ -485,7 +485,7 @@ try:
         global vidlink, apiInp
         vidlink = str(input(Fore.BLUE+"\nEnter Your Youtube Stream Link: "+Fore.RESET))
         if vidlink != "":
-            vidlink = vidlink.replace('https://youtu.be/', '').replace("https://www.youtube.com/watch?v=", "")
+            vidlink = vidlink.replace('https://youtu.be/', '').replace("https://www.youtube.com/watch?v=", "").replace("https://www.youtube.com/live/", "").replace("?feature=share", "")
             def apiInp():
                 try:
                     def checkapiversion():
