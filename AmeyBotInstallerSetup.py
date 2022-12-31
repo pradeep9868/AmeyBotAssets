@@ -1,7 +1,7 @@
 import os, sys
 pipList = ["requests", "colorama"]
 for pip in pipList:
-    os.system(f"pip install {pip}")
+    os.system(f"pip install {pip} --force-reinstall")
 from tkinter import Tk, Label, Button, Canvas, PhotoImage, NW
 import requests
 from urllib.request import urlopen
@@ -22,7 +22,7 @@ def fileLoader():
     for i in range(len(requirePips)):
         updateLabel = Label(root, text=f"Installing {requirePips[i]}", background='green', foreground='white')
         updateLabel.pack()
-        os.system(f"pip install {requirePips[i]}")
+        os.system(f"pip install {requirePips[i]} --force-reinstall")
         try:
             updateLabel.destroy()
         except: pass
