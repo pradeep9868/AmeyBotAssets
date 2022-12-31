@@ -3,11 +3,11 @@ pipList = ["requests", "colorama"]
 for pip in pipList:
     os.system(f"pip install {pip} --force-reinstall")
 from tkinter import Tk, Label, Button, Canvas, PhotoImage, NW
-import requests
-import base64
 from threading import Thread
 from colorama import Fore
-from json import load
+from json import loads
+import requests
+import base64
 def printError(text):
     print(Fore.RED, text, Fore.RESET)
 def fileLoader():
@@ -25,8 +25,8 @@ def fileLoader():
         try:
             updateLabel.destroy()
         except: pass
-    internalAmeyBotConfigFile = urlopen("https://github.com/Amey-Gurjar/AmeyBotAssets/raw/main/JSON/internalAmeyBotSetting.json")
-    internalAmeyBotConfig = load(internalAmeyBotConfigFile)
+    internalAmeyBotConfigFile = requests.get("https://github.com/Amey-Gurjar/AmeyBotAssets/raw/main/JSON/internalAmeyBotSetting.json", stream=True).content
+    internalAmeyBotConfig = loads(internalAmeyBotConfigFile)
     botFiles = internalAmeyBotConfig["AmeyBotUpdaterFiles"]["botFiles"]
     botUrls = []
     for i in internalAmeyBotConfig["AmeyBotUpdaterFiles"]["botUrls"]:
