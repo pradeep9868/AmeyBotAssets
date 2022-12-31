@@ -4,6 +4,7 @@ __pycache__
 .vscode
 .idea
 .vs
+.test.py
 build
 plugins
 dist
