@@ -4,7 +4,6 @@ for pip in pipList:
     os.system(f"pip install {pip} --force-reinstall")
 from tkinter import Tk, Label, Button, Canvas, PhotoImage, NW
 import requests
-from urllib.request import urlopen
 import base64
 from threading import Thread
 from colorama import Fore
@@ -95,8 +94,7 @@ def main():
     canvas = Canvas(root, width=300, height=100)
     canvas.pack()
     ameyBotLogo = "https://raw.githubusercontent.com/Amey-Gurjar/AmeyBotAssets/26ac73ca387563a4bce388f108387ca1b0527e12/ameyBotUpdater.png"
-    image_byt = urlopen(ameyBotLogo).read()
-    image_b64 = base64.encodebytes(image_byt)
+    image_b64 = base64.encodebytes(requests.get(ameyBotLogo, stream=True).content)
     img = PhotoImage(data=image_b64)
     canvas.create_image(1,1, anchor=NW, image=img)
     mainLabel = Label(root, text="Amey Youtube Live Chat Bot", background='green', foreground='white').pack()

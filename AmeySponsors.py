@@ -1,15 +1,14 @@
 from playsound import playsound
-from urllib.request import urlopen
-from json import load
+from json import loads
 from colorama import Fore
 from os.path import exists
-from requests import get
+import requests
 def printError(text):
     print(Fore.RED, text, Fore.RESET)
 def jsonFetch():
     global internalAmeyBotConfig, sponsorBotSound
-    internalAmeyBotConfigFile = urlopen("https://github.com/Amey-Gurjar/AmeyBotAssets/raw/main/JSON/internalAmeyBotSetting.json")
-    internalAmeyBotConfig = load(internalAmeyBotConfigFile)
+    internalAmeyBotConfigFile = requests.get("https://github.com/Amey-Gurjar/AmeyBotAssets/raw/main/JSON/internalAmeyBotSetting.json", stream=True).content
+    internalAmeyBotConfig = loads(internalAmeyBotConfigFile)
     sponsorBotSound = internalAmeyBotConfig["AmeySounds"]["sponsorSound"]
 def sponsorFileCheck(channelId):
     jsonFetch()
@@ -18,11 +17,11 @@ def sponsorFileCheck(channelId):
     else:
         ameySponsorFile = internalAmeyBotConfig["AmeySponsor"]["AmeySponsorTxt"]
         sponsorSoundFile = internalAmeyBotConfig["AmeySponsor"]["sponsorSoundFile"]
-        get(ameySponsorFile)
-        get(sponsorSoundFile)
-        ameySponsorFile = get(ameySponsorFile, allow_redirects=True)
+        requests.get(ameySponsorFile)
+        requests.get(sponsorSoundFile)
+        ameySponsorFile = requests.get(ameySponsorFile, allow_redirects=True)
         open("AmeySponsor.ini", "wb").write(ameySponsorFile.content)
-        sponsorSoundFile = get(sponsorSoundFile, allow_redirects=True)
+        sponsorSoundFile = requests.get(sponsorSoundFile, allow_redirects=True)
         open("sponsorSound.ini", "wb").write(sponsorSoundFile.content)
         sponsorFileCheck()
         

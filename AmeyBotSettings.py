@@ -1,8 +1,7 @@
 from os.path import exists
 from colorama import Fore
-from json import load, dump
-from urllib.request import urlopen
-from requests import get
+from json import loads, dump
+import requests
 def printGood(text):
     print(Fore.GREEN, text, Fore.RESET)
 def printError(text):
@@ -10,8 +9,8 @@ def printError(text):
 AmeyBotConfigUrl = "https://github.com/Amey-Gurjar/AmeyBotAssets/raw/main/JSON/AmeyBotConfig.json"
 def jsonFetch():
     global configBotFunction, optionBotConfig, inputBotString
-    internalAmeyBotConfigFile = urlopen("https://raw.githubusercontent.com/Amey-Gurjar/AmeyBotAssets/main/JSON/internalAmeyBotSetting.json")
-    internalAmeyBotConfig = load(internalAmeyBotConfigFile)
+    internalAmeyBotConfigFile = requests.get("https://raw.githubusercontent.com/Amey-Gurjar/AmeyBotAssets/main/JSON/internalAmeyBotSetting.json", stream=True)
+    internalAmeyBotConfig = loads(internalAmeyBotConfigFile)
     configBotFunction = internalAmeyBotConfig["AmeyConfigFile"]["configFunction"]
     optionBotConfig = internalAmeyBotConfig["AmeyConfigFile"]["optionConfig"]
     inputBotString = internalAmeyBotConfig["AmeyConfigFile"]["inputString"]
@@ -64,10 +63,10 @@ def configRun():
             ameyBotConfig = load(ameyBotConfigFile)
             configCheck(ameyBotConfig=ameyBotConfig)
         except:
-            AmeyBotConfigDefault = get(AmeyBotConfigUrl, allow_redirects=True)
+            AmeyBotConfigDefault = requests.get(AmeyBotConfigUrl, allow_redirects=True)
             open("AmeyBotConfig.json", "wb").write(AmeyBotConfigDefault.content)
             configRun()
     else:
-        AmeyBotConfigDefault = get(AmeyBotConfigUrl, allow_redirects=True)
+        AmeyBotConfigDefault = requests.get(AmeyBotConfigUrl, allow_redirects=True)
         open("AmeyBotConfig.json", "wb").write(AmeyBotConfigDefault.content)
         configRun()

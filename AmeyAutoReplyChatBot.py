@@ -1,9 +1,9 @@
-from json import load
-from urllib.request import urlopen
+from json import loads
+import requests
 def jsonFetch():
     global ameyBotChatInput, ameyBotChatOutput
-    internalAmeyBotConfigFile = urlopen("https://raw.githubusercontent.com/Amey-Gurjar/AmeyBotAssets/main/JSON/autoReplyChatBot.json")
-    internalAmeyBotConfig = load(internalAmeyBotConfigFile)
+    internalAmeyBotConfigFile = requests.get("https://raw.githubusercontent.com/Amey-Gurjar/AmeyBotAssets/main/JSON/autoReplyChatBot.json", stream=True).content
+    internalAmeyBotConfig = loads(internalAmeyBotConfigFile)
     ameyBotChatInput = internalAmeyBotConfig["AmeyChatBot"]["chatInput"]
     ameyBotChatOutput = internalAmeyBotConfig["AmeyChatBot"]["chatOutput"]
 def mainChatBot(Author, chatMessage, insertComment):

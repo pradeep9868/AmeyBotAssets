@@ -12,7 +12,6 @@ from AmeyAutoReplyChatBot import mainChatBot
 import AmeySounds
 from AmeySponsors import sponsorFileCheck
 import webbrowser
-from urllib.request import urlopen
 import os
 from time import sleep
 import pyjokes
@@ -59,8 +58,8 @@ try:
             return True
     def ameyMainJsonFetch():
         global welcomeFont, BOT_SOUND, API_SERVICE_NAME, API_VERSION, API_SCOPES, API_KEYS, CLIENT_FILES, CLIENT_LINKS, ameyBotEmojiMain, ameyBotEmojiReplace
-        API_CONFIG_FILE = urlopen("https://github.com/Amey-Gurjar/AmeyBotAssets/raw/main/JSON/internalAmeyBotSetting.json")
-        API_CONFIG = json.load(API_CONFIG_FILE)
+        API_CONFIG_FILE = requests.get("https://github.com/Amey-Gurjar/AmeyBotAssets/raw/main/JSON/internalAmeyBotSetting.json", stream=True).content
+        API_CONFIG = json.loads(API_CONFIG_FILE)
         # BOT STYLE
         welcomeFont = API_CONFIG["AmeyBotStyle"]["welcomeFont"]
         # BOT SOUND
@@ -86,8 +85,8 @@ try:
     #     def authBot():
     #         key = open("key.txt", "r")
     #         keyText = key.readline()
-    #         keyFile = urlopen(authenticator)
-    #         keyData = json.loads(keyFile.read())
+    #         keyFile = requests.get(authenticator, stream=True).content
+    #         keyData = json.loads(keyFile)
     #         try:
     #             if keyText in keyData["Keys"]:
     #                 printGood("Verification Successfull")
@@ -473,8 +472,8 @@ try:
             mainBot()
     def urltojson(jsonurl, jsonfilename):
         global jsonFileName
-        jsonurlfile = urlopen(jsonurl)
-        json_data = json.loads(jsonurlfile.read())
+        jsonurlfile = requests.get(jsonurl, stream=True).content
+        json_data = json.loads(jsonurlfile)
         jsonFileName = jsonfilename
         with open(jsonfilename, 'w') as jsonfile:
             json.dump(json_data, jsonfile)
