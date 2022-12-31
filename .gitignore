@@ -1,10 +1,10 @@
 __pycache__
+test.py
 !AmeyChatBot.mp3
 !ameyBotUpdater.png
 .vscode
 .idea
 .vs
-test.py
 build
 plugins
 dist
