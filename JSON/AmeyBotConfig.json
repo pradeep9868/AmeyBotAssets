@@ -3,6 +3,7 @@
         "botName": "",
         "botUrl": "",
         "readingBot": "",
+        "sayRequired": "",
         "autoReplyChatBot": "",
         "welcomeUser": "",
         "welcomeMusic": "",

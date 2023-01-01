@@ -439,7 +439,7 @@ try:
         BASE_URL = "http://api.openweathermap.org/data/2.5/weather?"
         URL = BASE_URL +"q=" + location + "&appid=" + '9834d7f1a59251031184ca2922593739'
         weatherSlang = ["Right Now In", "In", "Currently In", "Today In"]
-        response = urlopen(URL)
+        response = requests.get(URL)
         weatherTalkName = random.choice(weatherSlang)
         try:
             if response.status_code == 200:
