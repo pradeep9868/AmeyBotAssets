@@ -3,10 +3,10 @@ pipList = ["requests", "colorama"]
 for pip in pipList:
     os.system(f"pip install {pip} --force-reinstall")
 from tkinter import Tk, Label, Button, Canvas, PhotoImage, NW
+from urllib.request import urlopen
 from threading import Thread
 from colorama import Fore
-from json import loads
-import requests
+from json import load
 import base64
 def printError(text):
     print(Fore.RED, text, Fore.RESET)
@@ -25,8 +25,8 @@ def fileLoader():
         try:
             updateLabel.destroy()
         except: pass
-    internalAmeyBotConfigFile = requests.get("https://github.com/Amey-Gurjar/AmeyBotAssets/raw/main/JSON/internalAmeyBotSetting.json", stream=True).content
-    internalAmeyBotConfig = loads(internalAmeyBotConfigFile)
+    internalAmeyBotConfigFile = urlopen("https://github.com/Amey-Gurjar/AmeyBotAssets/raw/main/JSON/internalAmeyBotSetting.json")
+    internalAmeyBotConfig = load(internalAmeyBotConfigFile)
     botFiles = internalAmeyBotConfig["AmeyBotUpdaterFiles"]["botFiles"]
     botUrls = []
     for i in internalAmeyBotConfig["AmeyBotUpdaterFiles"]["botUrls"]:
@@ -43,7 +43,7 @@ def botFileDownloader(botFileUrl, botFileName):
         dataDir = os.sep.join(homeDir, "AmeyBot")
         if not os.path.exists(dataDir):
             os.mkdir(dataDir)
-    myBotFile = requests.get(botFileUrl, allow_redirects=True)
+    myBotFile = urlopen(botFileUrl, allow_redirects=True)
     open(os.path.join(dataDir, botFileName), "wb").write(myBotFile.content)
 def shortCut(name, fileName, dataDir, desktopShortcut=False):
     import winshell, win32com.client, pythoncom
@@ -94,7 +94,7 @@ def main():
     canvas = Canvas(root, width=300, height=100)
     canvas.pack()
     ameyBotLogo = "https://raw.githubusercontent.com/Amey-Gurjar/AmeyBotAssets/26ac73ca387563a4bce388f108387ca1b0527e12/ameyBotUpdater.png"
-    image_b64 = base64.encodebytes(requests.get(ameyBotLogo, stream=True).content)
+    image_b64 = base64.encodebytes(urlopen(ameyBotLogo).read())
     img = PhotoImage(data=image_b64)
     canvas.create_image(1,1, anchor=NW, image=img)
     mainLabel = Label(root, text="Amey Youtube Live Chat Bot", background='green', foreground='white').pack()

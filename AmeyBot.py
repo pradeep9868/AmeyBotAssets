@@ -8,6 +8,7 @@ from AmeySounds import funnySounds
 from AmeyBotSettings import configRun
 from AmeyChannellog import version
 from AmeyEmoji import emojiCheck
+from urllib.request import urlopen
 from AmeyAutoReplyChatBot import mainChatBot
 import AmeySounds
 from AmeySponsors import sponsorFileCheck
@@ -58,7 +59,7 @@ try:
             return True
     def ameyMainJsonFetch():
         global welcomeFont, BOT_SOUND, API_SERVICE_NAME, API_VERSION, API_SCOPES, API_KEYS, CLIENT_FILES, CLIENT_LINKS, ameyBotEmojiMain, ameyBotEmojiReplace
-        API_CONFIG_FILE = requests.get("https://github.com/Amey-Gurjar/AmeyBotAssets/raw/main/JSON/internalAmeyBotSetting.json", stream=True).content
+        API_CONFIG_FILE = urlopen("https://github.com/Amey-Gurjar/AmeyBotAssets/raw/main/JSON/internalAmeyBotSetting.json")
         API_CONFIG = json.loads(API_CONFIG_FILE)
         # BOT STYLE
         welcomeFont = API_CONFIG["AmeyBotStyle"]["welcomeFont"]
@@ -85,7 +86,7 @@ try:
     #     def authBot():
     #         key = open("key.txt", "r")
     #         keyText = key.readline()
-    #         keyFile = requests.get(authenticator, stream=True).content
+    #         keyFile = urlopen(authenticator)
     #         keyData = json.loads(keyFile)
     #         try:
     #             if keyText in keyData["Keys"]:
@@ -438,7 +439,7 @@ try:
         BASE_URL = "http://api.openweathermap.org/data/2.5/weather?"
         URL = BASE_URL +"q=" + location + "&appid=" + '9834d7f1a59251031184ca2922593739'
         weatherSlang = ["Right Now In", "In", "Currently In", "Today In"]
-        response = requests.get(URL)
+        response = urlopen(URL)
         weatherTalkName = random.choice(weatherSlang)
         try:
             if response.status_code == 200:
@@ -472,7 +473,7 @@ try:
             mainBot()
     def urltojson(jsonurl, jsonfilename):
         global jsonFileName
-        jsonurlfile = requests.get(jsonurl, stream=True).content
+        jsonurlfile = urlopen(jsonurl)
         json_data = json.loads(jsonurlfile)
         jsonFileName = jsonfilename
         with open(jsonfilename, 'w') as jsonfile:

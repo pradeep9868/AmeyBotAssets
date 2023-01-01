@@ -1,14 +1,14 @@
+from urllib.request import urlopen
 from playsound import playsound
 from colorama import Fore
-from json import loads
-import requests
+from json import load
 import random
 def printError(text):
     print(Fore.RED, text, Fore.RESET)
 def jsonFetch():
     global soundBye, funnyBotSounds, funnyBotSoundsRaw ,fartBotSounds
-    internalAmeyBotConfigFile = requests.get("https://github.com/Amey-Gurjar/AmeyBotAssets/raw/main/JSON/internalAmeyBotSetting.json", stream=True).content
-    internalAmeyBotConfig = loads(internalAmeyBotConfigFile)
+    internalAmeyBotConfigFile = urlopen("https://github.com/Amey-Gurjar/AmeyBotAssets/raw/main/JSON/internalAmeyBotSetting.json")
+    internalAmeyBotConfig = load(internalAmeyBotConfigFile)
     soundBye = internalAmeyBotConfig["AmeySounds"]["soundBye"]
     funnyBotSounds = internalAmeyBotConfig["AmeySounds"]["funnySounds"]
     funnyBotSoundsRaw = []
