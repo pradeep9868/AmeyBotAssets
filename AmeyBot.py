@@ -267,32 +267,50 @@ try:
             print(f"{c.datetime} - {c.author.name} - {c.message}")
         nonSponsor = f"{c.author.name} This Is Feature Is Only For Channel Sponsors! You Can Join The Channel To Use This Feature."
         nonMod = f"{c.author.name} This Is Feature Is Only For Channel Moderators! You Can Join The Channel To Use This Feature."
-        if "!say" in c.message or "-say" in c.message:
-            def sayBot():
-                c.message = c.message.replace('!say', '')
-                c.message = c.message.replace('-say', '')
-                authorCheck = authorTimer()
-                if authorCheck != False:
-                    sponsorVoice(f"{c.author.name} Says {c.message}")
-                else: 
-                    pass
+        
+        def sayBot():
+            c.message = c.message.replace('!say', '')
+            c.message = c.message.replace('-say', '')
+            authorCheck = authorTimer()
+            if authorCheck != False:
+                sponsorVoice(f"{c.author.name} Says {c.message}")
+            else: 
+                pass
+        def readingChat():
             if readingBot == "all":
                 sayBot()
             elif readingBot == "sponsor":
-                if c.author.isChatSponsor == True or c.author.isChatOwner == True:
+                if c.author.isChatSponsor == True:
                     sayBot()
                 else:
-                    insert_comment(messagetext=nonSponsor)
                     pass
             elif readingBot == "mod":
                 if c.author.isChatModerator == True or c.author.isChatOwner == True:
                     sayBot()
                 else:
-                    insert_comment(messagetext=nonMod)
                     pass
             else:
                 pass
-        elif "!hello" in c.message or "-hello" in c.message:
+               
+        if readAllChats == "all":
+            readingChat()
+        elif readAllChats == "sponsor":
+            if c.author.isChatSponsor == True:
+                readingChat()
+            else:
+                if "!say" in c.message or "-say" in c.message:
+                    readingChat()       
+        elif readAllChats == "mod":
+            if c.author.isChatModerator == True or c.author.isChatOwner == True:
+                readingChat()
+            else:
+                if "!say" in c.message or "-say" in c.message:
+                    readingChat()
+        else:
+            if "!say" in c.message or "-say" in c.message:
+                    readingChat()
+        
+        if "!hello" in c.message or "-hello" in c.message:
             botHello = ["How Are You?", "Hope You Are Feeling Good", "How's Your Day Going Today?", "How Do You Do?", "Hope You Are Fine"]
             if welcomeMusic == "sponsor":
                 if c.author.isChatSponsor == True or c.author.isChatOwner == True:
@@ -536,13 +554,14 @@ try:
             except Exception as e:
                 printError(e)
     def configValidate():
-        global botName, botUrl, autoReplyChatBot, wordLimit, sayDelay, liveChats, timedAuthors, readingBot, welcomeBotUser, welcomeMusic, funnyBotSounds, jokes, timeOutTimeNormal, timeOutTimeMod
+        global botName, botUrl, readAllChats, autoReplyChatBot, wordLimit, sayDelay, liveChats, timedAuthors, readingBot, welcomeBotUser, welcomeMusic, funnyBotSounds, jokes, timeOutTimeNormal, timeOutTimeMod
         configRun()
         ameyBotConfigFile = open("AmeyBotConfig.json", "r")
         ameyBotConfig = json.load(ameyBotConfigFile)
         botName = ameyBotConfig["AmeyBotConfig"]["botName"]
         botUrl = ameyBotConfig["AmeyBotConfig"]["botUrl"]
         readingBot = ameyBotConfig["AmeyBotConfig"]["readingBot"]
+        readAllChats = ameyBotConfig["AmeyBotConfig"]["readAllChats"]
         autoReplyChatBot = ameyBotConfig["AmeyBotConfig"]["autoReplyChatBot"]
         welcomeBotUser = ameyBotConfig["AmeyBotConfig"]["welcomeUser"]
         welcomeMusic = ameyBotConfig["AmeyBotConfig"]["welcomeMusic"]

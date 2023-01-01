@@ -15,7 +15,7 @@ def jsonFetch():
     configBotFunction = internalAmeyBotConfig["AmeyConfigFile"]["configFunction"]
     optionBotConfig = internalAmeyBotConfig["AmeyConfigFile"]["optionConfig"]
     inputBotString = internalAmeyBotConfig["AmeyConfigFile"]["inputString"]
-def configValidator(ameyBotConfig, configFunction ,optionConfig, inputString):
+def configValidator(ameyBotConfig, configFunction, optionConfig, inputString):
     if configFunction == "botName" or configFunction == "botUrl":
         if ameyBotConfig["AmeyBotConfig"][configFunction] == "":
             print("\n")
