@@ -1,6 +1,7 @@
+from urllib.request import urlopen
 from os.path import exists
 from colorama import Fore
-from json import loads, dump
+from json import load, dump
 import requests
 def printGood(text):
     print(Fore.GREEN, text, Fore.RESET)
@@ -9,8 +10,8 @@ def printError(text):
 AmeyBotConfigUrl = "https://github.com/Amey-Gurjar/AmeyBotAssets/raw/main/JSON/AmeyBotConfig.json"
 def jsonFetch():
     global configBotFunction, optionBotConfig, inputBotString
-    internalAmeyBotConfigFile = requests.get("https://raw.githubusercontent.com/Amey-Gurjar/AmeyBotAssets/main/JSON/internalAmeyBotSetting.json", stream=True)
-    internalAmeyBotConfig = loads(internalAmeyBotConfigFile)
+    internalAmeyBotConfigFile = urlopen("https://raw.githubusercontent.com/Amey-Gurjar/AmeyBotAssets/main/JSON/internalAmeyBotSetting.json")
+    internalAmeyBotConfig = load(internalAmeyBotConfigFile)
     configBotFunction = internalAmeyBotConfig["AmeyConfigFile"]["configFunction"]
     optionBotConfig = internalAmeyBotConfig["AmeyConfigFile"]["optionConfig"]
     inputBotString = internalAmeyBotConfig["AmeyConfigFile"]["inputString"]
