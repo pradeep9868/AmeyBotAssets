@@ -7,6 +7,7 @@ from urllib.request import urlopen
 from threading import Thread
 from colorama import Fore
 from json import load
+import requests
 import base64
 def printError(text):
     print(Fore.RED, text, Fore.RESET)
@@ -43,7 +44,7 @@ def botFileDownloader(botFileUrl, botFileName):
         dataDir = os.sep.join(homeDir, "AmeyBot")
         if not os.path.exists(dataDir):
             os.mkdir(dataDir)
-    myBotFile = urlopen(botFileUrl, allow_redirects=True)
+    myBotFile = requests.get(botFileUrl, allow_redirects=True)
     open(os.path.join(dataDir, botFileName), "wb").write(myBotFile.content)
 def shortCut(name, fileName, dataDir, desktopShortcut=False):
     import winshell, win32com.client, pythoncom
