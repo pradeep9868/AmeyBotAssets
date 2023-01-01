@@ -60,7 +60,7 @@ try:
     def ameyMainJsonFetch():
         global welcomeFont, BOT_SOUND, API_SERVICE_NAME, API_VERSION, API_SCOPES, API_KEYS, CLIENT_FILES, CLIENT_LINKS, ameyBotEmojiMain, ameyBotEmojiReplace
         API_CONFIG_FILE = urlopen("https://github.com/Amey-Gurjar/AmeyBotAssets/raw/main/JSON/internalAmeyBotSetting.json")
-        API_CONFIG = json.loads(API_CONFIG_FILE)
+        API_CONFIG = json.load(API_CONFIG_FILE)
         # BOT STYLE
         welcomeFont = API_CONFIG["AmeyBotStyle"]["welcomeFont"]
         # BOT SOUND
@@ -87,7 +87,7 @@ try:
     #         key = open("key.txt", "r")
     #         keyText = key.readline()
     #         keyFile = urlopen(authenticator)
-    #         keyData = json.loads(keyFile)
+    #         keyData = json.load(keyFile)
     #         try:
     #             if keyText in keyData["Keys"]:
     #                 printGood("Verification Successfull")
@@ -474,7 +474,7 @@ try:
     def urltojson(jsonurl, jsonfilename):
         global jsonFileName
         jsonurlfile = urlopen(jsonurl)
-        json_data = json.loads(jsonurlfile)
+        json_data = json.load(jsonurlfile)
         jsonFileName = jsonfilename
         with open(jsonfilename, 'w') as jsonfile:
             json.dump(json_data, jsonfile)
