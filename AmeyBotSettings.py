@@ -19,7 +19,7 @@ def configValidator(ameyBotConfig, configFunction, optionConfig, inputString):
     if configFunction == "botName" or configFunction == "botUrl":
         if ameyBotConfig["AmeyBotConfig"][configFunction] == "":
             print("\n")
-            readingBot = str(input(Fore.BLUE+inputString+Fore.RESET)).lower()
+            readingBot = str(input(Fore.BLUE+inputString+Fore.RESET))
             if configFunction == "botUrl": 
                 readingBot = readingBot.replace("https://www.youtube.com/channel/", "")
             ameyBotConfig["AmeyBotConfig"][configFunction] = ameyBotConfig["AmeyBotConfig"][configFunction].replace(ameyBotConfig["AmeyBotConfig"][configFunction], str(readingBot))
