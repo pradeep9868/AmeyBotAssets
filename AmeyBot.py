@@ -8,15 +8,14 @@ from AmeySounds import funnySounds
 from AmeyBotSettings import configRun
 from AmeyChannellog import version
 from AmeyEmoji import emojiCheck
-from urllib.request import urlopen
 from AmeyAutoReplyChatBot import mainChatBot
 import AmeySounds
 from AmeySponsors import sponsorFileCheck
 import webbrowser
+from urllib.request import urlopen
 import os
 from time import sleep
 import pyjokes
-from os.path import exists
 import requests, json
 import wikipedia
 import random
@@ -58,7 +57,7 @@ try:
         else:
             return True
     def ameyMainJsonFetch():
-        global welcomeFont, BOT_SOUND, API_SERVICE_NAME, API_VERSION, API_SCOPES, API_KEYS, CLIENT_FILES, CLIENT_LINKS, ameyBotEmojiMain, ameyBotEmojiReplace
+        global welcomeFont, BOT_SOUND, API_SERVICE_NAME, API_VERSION, API_SCOPES, API_KEYS, CLIENT_FILES, ameyBotEmojiMain, ameyBotEmojiReplace
         API_CONFIG_FILE = urlopen("https://github.com/Amey-Gurjar/AmeyBotAssets/raw/main/JSON/internalAmeyBotSetting.json")
         API_CONFIG = json.load(API_CONFIG_FILE)
         # BOT STYLE
@@ -76,8 +75,6 @@ try:
         API_KEYS = API_CONFIG["AMEYBOTAPI"]["botApiKeys"]
         # CLIENT FILES
         CLIENT_FILES = API_CONFIG["AMEYBOTAPI"]["botClientJsonFiles"]
-        # CLIENT LINKS
-        CLIENT_LINKS = API_CONFIG["AMEYBOTAPI"]["CLIENT_LINKS"]
         return None
         
     # def botAuthenticator():
@@ -87,7 +84,7 @@ try:
     #         key = open("key.txt", "r")
     #         keyText = key.readline()
     #         keyFile = urlopen(authenticator)
-    #         keyData = json.load(keyFile)
+    #         keyData = json.loads(keyFile.read())
     #         try:
     #             if keyText in keyData["Keys"]:
     #                 printGood("Verification Successfull")
@@ -122,8 +119,7 @@ try:
             # Get credentials and create an API client
             flow = InstalledAppFlow.from_client_secrets_file(
                 CLIENT_SECRET_FILE, API_SCOPES)
-            webbrowser.open(CLIENT_LINK)
-            credentials = flow.run_console()
+            credentials = flow.run_local_server()
             os.remove(jsonFileName)
             global youtubeMain
             global youtubeBan
@@ -267,50 +263,32 @@ try:
             print(f"{c.datetime} - {c.author.name} - {c.message}")
         nonSponsor = f"{c.author.name} This Is Feature Is Only For Channel Sponsors! You Can Join The Channel To Use This Feature."
         nonMod = f"{c.author.name} This Is Feature Is Only For Channel Moderators! You Can Join The Channel To Use This Feature."
-        
-        def sayBot():
-            c.message = c.message.replace('!say', '')
-            c.message = c.message.replace('-say', '')
-            authorCheck = authorTimer()
-            if authorCheck != False:
-                sponsorVoice(f"{c.author.name} Says {c.message}")
-            else: 
-                pass
-        def readingChat():
+        if "!say" in c.message or "-say" in c.message:
+            def sayBot():
+                c.message = c.message.replace('!say', '')
+                c.message = c.message.replace('-say', '')
+                authorCheck = authorTimer()
+                if authorCheck != False:
+                    sponsorVoice(f"{c.author.name} Says {c.message}")
+                else: 
+                    pass
             if readingBot == "all":
                 sayBot()
             elif readingBot == "sponsor":
-                if c.author.isChatSponsor == True:
+                if c.author.isChatSponsor == True or c.author.isChatOwner == True:
                     sayBot()
                 else:
+                    insert_comment(messagetext=nonSponsor)
                     pass
             elif readingBot == "mod":
                 if c.author.isChatModerator == True or c.author.isChatOwner == True:
                     sayBot()
                 else:
+                    insert_comment(messagetext=nonMod)
                     pass
             else:
                 pass
-               
-        if readAllChats == "all":
-            readingChat()
-        elif readAllChats == "sponsor":
-            if c.author.isChatSponsor == True:
-                readingChat()
-            else:
-                if "!say" in c.message or "-say" in c.message:
-                    readingChat()       
-        elif readAllChats == "mod":
-            if c.author.isChatModerator == True or c.author.isChatOwner == True:
-                readingChat()
-            else:
-                if "!say" in c.message or "-say" in c.message:
-                    readingChat()
-        else:
-            if "!say" in c.message or "-say" in c.message:
-                    readingChat()
-        
-        if "!hello" in c.message or "-hello" in c.message:
+        elif "!hello" in c.message or "-hello" in c.message:
             botHello = ["How Are You?", "Hope You Are Feeling Good", "How's Your Day Going Today?", "How Do You Do?", "Hope You Are Fine"]
             if welcomeMusic == "sponsor":
                 if c.author.isChatSponsor == True or c.author.isChatOwner == True:
@@ -492,7 +470,7 @@ try:
     def urltojson(jsonurl, jsonfilename):
         global jsonFileName
         jsonurlfile = urlopen(jsonurl)
-        json_data = json.load(jsonurlfile)
+        json_data = json.loads(jsonurlfile.read())
         jsonFileName = jsonfilename
         with open(jsonfilename, 'w') as jsonfile:
             json.dump(json_data, jsonfile)
@@ -501,13 +479,13 @@ try:
     #Main Chatbot
     def chatBot():
         global vidlink, apiInp
-        vidlink = str(input(Fore.BLUE+"\nEnter Your Youtube Stream Link: "+Fore.RESET))
+        vidlink = str(input(f"{Fore.BLUE}\nEnter Your Youtube Stream Link: {Fore.RESET}"))
         if vidlink != "":
-            vidlink = vidlink.replace('https://youtu.be/', '').replace("https://www.youtube.com/watch?v=", "").replace("https://www.youtube.com/live/", "").replace("?feature=share", "")
+            vidlink = vidlink.replace('https://youtu.be/', '').replace("https://www.youtube.com/watch?v=", "")
             def apiInp():
                 try:
                     def checkapiversion():
-                        global CLIENT_SECRET_FILE, CLIENT_LINK, API_KEY
+                        global CLIENT_SECRET_FILE, API_KEY
                         inputApiVersion = str(input(Fore.BLUE+"Enter The Api Version (1 To 4, Default 1): "+Fore.RESET))
                         if inputApiVersion == "":
                             inputApiVersion = "1"
@@ -515,10 +493,8 @@ try:
                         if inputApiVersion <= len(API_KEYS): 
                             CLIENT_FILES_MAIN = list(CLIENT_FILES.values())
                             API_KEYS_MAIN = list(API_KEYS.values())
-                            CLIENT_LINKS_MAIN = list(CLIENT_LINKS.values())
                             CLIENT_SECRET_FILE = urltojson(CLIENT_FILES_MAIN[inputApiVersion-1], f"CLIENTJSON{inputApiVersion}.json")
                             API_KEY = API_KEYS_MAIN[inputApiVersion-1]
-                            CLIENT_LINK = CLIENT_LINKS_MAIN[inputApiVersion-1]
                             authChat()
                         else:
                             printError("Invalid API! Please Try Again.")
@@ -554,14 +530,13 @@ try:
             except Exception as e:
                 printError(e)
     def configValidate():
-        global botName, botUrl, readAllChats, autoReplyChatBot, wordLimit, sayDelay, liveChats, timedAuthors, readingBot, welcomeBotUser, welcomeMusic, funnyBotSounds, jokes, timeOutTimeNormal, timeOutTimeMod
+        global botName, botUrl, autoReplyChatBot, wordLimit, sayDelay, liveChats, timedAuthors, readingBot, welcomeBotUser, welcomeMusic, funnyBotSounds, jokes, timeOutTimeNormal, timeOutTimeMod
         configRun()
         ameyBotConfigFile = open("AmeyBotConfig.json", "r")
         ameyBotConfig = json.load(ameyBotConfigFile)
         botName = ameyBotConfig["AmeyBotConfig"]["botName"]
         botUrl = ameyBotConfig["AmeyBotConfig"]["botUrl"]
         readingBot = ameyBotConfig["AmeyBotConfig"]["readingBot"]
-        readAllChats = ameyBotConfig["AmeyBotConfig"]["readAllChats"]
         autoReplyChatBot = ameyBotConfig["AmeyBotConfig"]["autoReplyChatBot"]
         welcomeBotUser = ameyBotConfig["AmeyBotConfig"]["welcomeUser"]
         welcomeMusic = ameyBotConfig["AmeyBotConfig"]["welcomeMusic"]
